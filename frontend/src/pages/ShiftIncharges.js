@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Plus, Edit2, Trash2, MessageSquare, Calendar } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -210,6 +210,9 @@ const ShiftIncharges = () => {
             <DialogContent className="max-w-2xl" data-testid="incharge-dialog">
               <DialogHeader>
                 <DialogTitle>{editingIncharge ? 'Edit Shift Incharge' : 'Add New Shift Incharge'}</DialogTitle>
+                <DialogDescription>
+                  {editingIncharge ? 'Update shift incharge details and crew information' : 'Create a new shift incharge with crew members'}
+                </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -384,6 +387,9 @@ const ShiftIncharges = () => {
           <DialogContent className="max-w-2xl" data-testid="notes-dialog">
             <DialogHeader>
               <DialogTitle>Notes - {selectedIncharge?.name}</DialogTitle>
+              <DialogDescription>
+                Add and manage notes for this shift incharge
+              </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div className="flex gap-2">

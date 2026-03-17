@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Plus } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -159,6 +159,9 @@ const Production = () => {
               <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" data-testid="production-dialog">
                 <DialogHeader>
                   <DialogTitle>Add Production Record</DialogTitle>
+                  <DialogDescription>
+                    Create a new production record for a shift with targets and status
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
