@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Plus, Edit2, Trash2 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -122,6 +122,9 @@ const Plants = () => {
             <DialogContent data-testid="plant-dialog">
               <DialogHeader>
                 <DialogTitle>{editingPlant ? 'Edit Plant' : 'Add New Plant'}</DialogTitle>
+                <DialogDescription>
+                  {editingPlant ? 'Update plant information' : 'Create a new manufacturing plant'}
+                </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
