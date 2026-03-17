@@ -454,14 +454,17 @@ async def get_dashboard_metrics(request: Request):
             if follow_up < datetime.now(timezone.utc).date():
                 overdue_count += 1
     
-    # Get shift performance (last 7 days)
+    # Get shift performance (last 7 days) - Optimized single query
+    dates = [(datetime.now(timezone.utc).date() - timedelta(days=i)).isoformat() for i in range(7)]
+    all_records = await db.production_records.find({"date": {"$in": dates}}, {"_id": 0}).to_list(7000)
+    
+    # Group by date
     shift_performance = []
-    for i in range(7):
-        date = (datetime.now(timezone.utc).date() - timedelta(days=i)).isoformat()
-        records = await db.production_records.find({"date": date}, {"_id": 0}).to_list(1000)
-        shift_a = sum(r.get("shift_production_value", 0) for r in records if r.get("shift_type") == "A")
-        shift_b = sum(r.get("shift_production_value", 0) for r in records if r.get("shift_type") == "B")
-        shift_c = sum(r.get("shift_production_value", 0) for r in records if r.get("shift_type") == "C")
+    for date in dates:
+        date_records = [r for r in all_records if r.get("date") == date]
+        shift_a = sum(r.get("shift_production_value", 0) for r in date_records if r.get("shift_type") == "A")
+        shift_b = sum(r.get("shift_production_value", 0) for r in date_records if r.get("shift_type") == "B")
+        shift_c = sum(r.get("shift_production_value", 0) for r in date_records if r.get("shift_type") == "C")
         shift_performance.append({
             "date": date,
             "shift_a": shift_a,
